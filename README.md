@@ -2,6 +2,7 @@
 
 An instance class which hooks into all mouse and touch events.
 It also captures position, direction and speed of movement.
+(Currently it supports single touch only)
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -17,24 +18,71 @@ It also captures position, direction and speed of movement.
 [download-image]: https://img.shields.io/npm/dm/jw-mouse.svg
 [download-url]: https://npmjs.org/package/jw-mouse
 
-## install
+## Install
 
 [![NPM](https://nodei.co/npm/jw-mouse.png)](https://nodei.co/npm/jw-mouse)
+
+## Methods
+
+| Method              | Description                                                                     |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `attach`            | append the mouse to the a DOM element and event functions to it.                |
+| `detach`            | disengage the mouse from DOM element and event functions from it.               |
+| `setPreventDefault` | toggle value for mouse prevent default on all events.                           |
+| `onOver`            | bind an event handler to the mouse over event. Returns a method to unbind.      |
+| `clearOver`         | unbind all event handlers from the mouse over event.                            |
+| `onOut`             | bind an event handler to the mouse out event. Returns a method to unbind.       |
+| `clearOut`          | unbind all event handlers from the mouse out event.                             |
+| `onDown`            | bind an event handler to the mouse down event. Returns a method to unbind.      |
+| `clearDown`         | unbind all event handlers from the mouse down event.                            |
+| `onUp`              | bind an event handler to the mouse up event. Returns a method to unbind.        |
+| `clearUp`           | unbind all event handlers from the mouse up event.                              |
+| `onMove`            | bind an event handler to the mouse move event. Returns a method to unbind.      |
+| `clearMove`         | unbind all event handlers from the mouse move event.                            |
+| `onScroll`          | bind an event handler to the mouse scroll event. Returns a method to unbind.    |
+| `clearScroll`       | unbind all event handlers from the mouse scroll event.                          |
+| `onDrag`            | bind an event handler to the mouse drag event. Returns a method to unbind.      |
+| `clearDrag`         | unbind all event handlers from the mouse drag event.                            |
+| `onDragOver`        | bind an event handler to the mouse drag over event. Returns a method to unbind. |
+| `clearDragOver`     | unbind all event handlers from the mouse drag over event.                       |
+| `onDrop`            | bind an event handler to the mouse drop event. Returns a method to unbind.      |
+| `clearDrop`         | unbind all event handlers from the mouse drop event.                            |
+| `onStop`            | bind an event handler to the mouse stop event. Returns a method to unbind.      |
+| `clearStop`         | unbind all event handlers from the mouse stop event.                            |
+| `onClick`           | bind an event handler to the mouse click event. Returns a method to unbind.     |
+| `clearClick`        | unbind all event handlers from the mouse click event.                           |
+
+## Handler Event
+
+On handling the event, the same event object as the one from `addEventListener` will be passed as a parameter, with an additional `mouse` object, which holds the following properties:
+
+| Prop                   | Description                                                             |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `isMouseDown`          | whether any mouse key is pressed down.                                  |
+| `scrollDelta`          | the delta value when the mouse scrolls.                                 |
+| `isTouching`           | whether the mouse is currently contacted by touch surface.              |
+| `previousPosition`     | previous mouse position.                                                |
+| `previousDownPosition` | previous mouse position when a mouse button was pressed.                |
+| `position`             | current mouse position.                                                 |
+| `direction`            | current mouse direction.                                                |
+| `movedDistance`        | the distance moved from previous position.                              |
+| `movingSpeed`          | current mouse moving speed.                                             |
+| `preventDefault`       | whether the mouse skips the default behaviours upon the listen element. |
 
 ## Usage
 
 ```javascript
 import Mouse from "jw-mouse";
 
-/* Get the container for the mouse. */
-var container = document.getElementById("container");
+/* Get the element for the mouse. */
+var element = document.getElementById("container");
 
 /* Create a mouse instance, with the element as its container.
  * This is to allow the mouse to monitor all mouse events from the container. */
-var mouse = new Mouse(container);
+var mouse = new Mouse(element);
 
 /** Append the mouse to the a DOM element and event functions to it. */
-mouse.attach(container);
+mouse.attach(element);
 
 /** Disengage the mouse from DOM element and event functions from it. */
 mouse.detach();
@@ -42,123 +90,101 @@ mouse.detach();
 /** Toggle value for mouse prevent default on all events. */
 mouse.setPreventDefault(preventDefault);
 
-let mouseOverHandler = event => { ... };
-
 /** Bind an event handler to the mouse over event. */
-mouse.onMouseOver(mouseOverHandler);
+let removeOver = mouse.onOver(event => { ... });
 
 /** Unbind an event handler to the mouse over event. */
-mouse.removeMouseOver(mouseOverHandler);
+removeOver();
 
 /** Unbind all event handlers from the mouse over event. */
-mouse.clearMouseOver();
-
-let mouseOutHandler = event => { ... };
+mouse.clearOver();
 
 /** Bind an event handler to the mouse out event. */
-mouse.onMouseOut(mouseOutHandler);
+let removeOut = mouse.onOut(event => { ... });
 
 /** Unbind an event handler to the mouse out event. */
-mouse.removeMouseOut(mouseOutHandler);
+removeOut();
 
 /** Unbind all event handlers from the mouse out event. */
-mouse.clearMouseOut();
-
-let mouseDownHandler = event => { ... };
+mouse.clearOut();
 
 /** Bind an event handler to the mouse down event. */
-mouse.onMouseDown(mouseDownHandler);
+let removeDown = mouse.onDown(event => { ... });
 
 /** Unbind an event handler to the mouse down event. */
-mouse.removeMouseDown(mouseDownHandler);
+removeDown();
 
 /** Unbind all event handlers from the mouse down event. */
-mouse.clearMouseDown();
-
-let mouseUpHandler = event => { ... };
+mouse.clearDown();
 
 /** Bind an event handler to the mouse up event. */
-mouse.onMouseUp(mouseUpHandler);
+let removeUp = mouse.onUp(event => { ... });
 
 /** Unbind an event handler to the mouse up event. */
-mouse.removeMouseUp(mouseUpHandler);
+removeUp();
 
 /** Unbind all event handlers from the mouse up event. */
-mouse.clearMouseUp();
-
-let mouseMoveHandler = event => { ... };
+mouse.clearUp();
 
 /** Bind an event handler to the mouse move event. */
-mouse.onMouseMove(mouseMoveHandler);
+let removeMove = mouse.onMove(event => { ... });
 
 /** Unbind an event handler to the mouse move event. */
-mouse.removeMouseMove(mouseMoveHandler);
+removeMove();
 
 /** Unbind all event handlers from the mouse move event. */
-mouse.clearMouseMove();
-
-let mouseScrollHandler = event => { ... };
+mouse.clearMove();
 
 /** Bind an event handler to the scroll event. */
-mouse.onScroll(mouseScrollHandler);
+let removeScroll = mouse.onScroll(event => { ... });
 
 /** Unbind an event handler to the scroll event. */
-mouse.removeScroll(mouseScrollHandler);
+removeScroll();
 
 /** Unbind all event handlers from the mouse scroll event. */
 mouse.clearScroll();
 
-let dragHandler = event => { ... };
-
 /** Bind an event handler to the drag event. */
-mouse.onDrag(dragHandler);
+let removeDrag = mouse.onDrag(event => { ... });
 
 /** Unbind an event handler to the drag event. */
-mouse.removeDrag(dragHandler);
+removeDrag();
 
 /** Unbind all event handlers from the mouse drag event. */
 mouse.clearDrag();
 
-let dragOverHandler = event => { ... };
-
 /** Bind an event handler to the drag over event. */
-mouse.onDragOver(dragOverHandler);
+let removeDragOver = mouse.onDragOver(event => { ... });
 
 /** Unbind an event handler to the drag over event. */
-mouse.removeDragOver(dragOverHandler);
+removeDragOver();
 
 /** Unbind all event handlers from the drag over event. */
 mouse.clearDragOver();
 
-let dropHandler = event => { ... };
-
 /** Bind an event handler to the drop event. */
-mouse.onDrop(dropHandler);
+let removeDrop = mouse.onDrop(event => { ... });
 
 /** Unbind an event handler to the drop event. */
-mouse.removeDrop(dropHandler);
+removeDrop();
 
 /** Unbind all event handlers from the drop event. */
 mouse.clearDrop();
 
-let stopHandler = event => { ... };
-
 /** Bind all event handlers from the stop event. */
-mouse.onStop(stopHandler);
+let removeStop = mouse.onStop(event => { ... });
 
 /** Unbind an event handler to the stop event. */
-mouse.removeStop(stopHandler);
+removeStop();
 
 /** Unbind all event handlers from the stop event. */
 mouse.clearStop();
 
-let clickHandler = event => { ... };
-
 /** Bind all event handlers from the click event. */
-mouse.onClick(clickHandler);
+let removeClick = mouse.onClick(event => { ... });
 
 /** Unbind an event handler to the click event. */
-mouse.removeClick(clickHandler);
+removeClick();
 
 /** Unbind all event handlers from the click event. */
 mouse.clearClick();

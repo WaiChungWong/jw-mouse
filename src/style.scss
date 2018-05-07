@@ -1,0 +1,22 @@
+body {
+  margin: 0px;
+}
+
+#demo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  #mouse,
+  #future-mouse {
+    position: absolute;
+    margin-top: -5px;
+    margin-left: -5px;
+    border: 5px solid;
+    border-radius: 50%;
+  }
+
+  #future-mouse {
+    transition: 0.1s;
+  }
+}
