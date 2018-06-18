@@ -1,6 +1,6 @@
 {
   "name": "jw-mouse",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An instance class which hooks into all mouse and touch events.",
   "author": "john wong <johnwongwwc@gmail.com>",
   "homepage": "http://https://waichungwong.github.io/jw-mouse/build",

@@ -29,10 +29,10 @@ It also captures position, direction and speed of movement.
 | `attach`            | append the mouse to the a DOM element and event functions to it.                |
 | `detach`            | disengage the mouse from DOM element and event functions from it.               |
 | `setPreventDefault` | toggle value for mouse prevent default on all events.                           |
-| `onOver`            | bind an event handler to the mouse over event. Returns a method to unbind.      |
-| `clearOver`         | unbind all event handlers from the mouse over event.                            |
-| `onOut`             | bind an event handler to the mouse out event. Returns a method to unbind.       |
-| `clearOut`          | unbind all event handlers from the mouse out event.                             |
+| `onEnter`           | bind an event handler to the mouse enter event. Returns a method to unbind.     |
+| `clearEnter`        | unbind all event handlers from the mouse enter event.                           |
+| `onLeave`           | bind an event handler to the mouse leave event. Returns a method to unbind.     |
+| `clearLeave`        | unbind all event handlers from the mouse leave event.                           |
 | `onDown`            | bind an event handler to the mouse down event. Returns a method to unbind.      |
 | `clearDown`         | unbind all event handlers from the mouse down event.                            |
 | `onUp`              | bind an event handler to the mouse up event. Returns a method to unbind.        |
@@ -90,23 +90,23 @@ mouse.detach();
 /** Toggle value for mouse prevent default on all events. */
 mouse.setPreventDefault(preventDefault);
 
-/** Bind an event handler to the mouse over event. */
-let removeOver = mouse.onOver(event => { ... });
+/** Bind an event handler to the mouse enter event. */
+let removeEnter = mouse.onEnter(event => { ... });
 
-/** Unbind an event handler to the mouse over event. */
-removeOver();
+/** Unbind an event handler to the mouse enter event. */
+removeEnter();
 
-/** Unbind all event handlers from the mouse over event. */
-mouse.clearOver();
+/** Unbind all event handlers from the mouse enter event. */
+mouse.clearEnter();
 
-/** Bind an event handler to the mouse out event. */
-let removeOut = mouse.onOut(event => { ... });
+/** Bind an event handler to the mouse leave event. */
+let removeLeave = mouse.onLeave(event => { ... });
 
-/** Unbind an event handler to the mouse out event. */
-removeOut();
+/** Unbind an event handler to the mouse leave event. */
+removeLeave();
 
-/** Unbind all event handlers from the mouse out event. */
-mouse.clearOut();
+/** Unbind all event handlers from the mouse leave event. */
+mouse.clearLeave();
 
 /** Bind an event handler to the mouse down event. */
 let removeDown = mouse.onDown(event => { ... });

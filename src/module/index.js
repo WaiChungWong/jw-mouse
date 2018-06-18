@@ -132,8 +132,8 @@ class Mouse {
 
     /* The list of listeners this mouse is appended to.
      * Each mouse event will trigger the corresponding method of each listeners. */
-    this.overEvents = [];
-    this.outEvents = [];
+    this.enterEvents = [];
+    this.leaveEvents = [];
     this.downEvents = [];
     this.upEvents = [];
     this.moveEvents = [];
@@ -145,8 +145,8 @@ class Mouse {
     this.clickEvents = [];
 
     /* Add bindings to all event methods to secure scoping. */
-    this._mouseOver = this._mouseOver.bind(this);
-    this._mouseOut = this._mouseOut.bind(this);
+    this._mouseEnter = this._mouseEnter.bind(this);
+    this._mouseLeave = this._mouseLeave.bind(this);
     this._mouseDown = this._mouseDown.bind(this);
     this._mouseUp = this._mouseUp.bind(this);
     this._mouseMove = this._mouseMove.bind(this);
@@ -166,18 +166,18 @@ class Mouse {
       on those listeners.
     */
     this.eventMap = {
-      mouseover: {
-        events: [this.overEvents],
+      mouseleave: {
+        events: [this.enterEvents],
         listeners: [
-          { name: "mouseover", method: this._mouseOver },
+          { name: "mouseenter", method: this._mouseEnter },
           { name: "touchenter", method: this._touchEnter }
         ],
         added: false
       },
-      mouseout: {
-        events: [this.outEvents],
+      mouseenter: {
+        events: [this.leaveEvents],
         listeners: [
-          { name: "mouseout", method: this._mouseOut },
+          { name: "mouseleave", method: this._mouseLeave },
           { name: "touchleave", method: this._touchLeave },
           { name: "touchcancel", method: this._touchCancel }
         ],
@@ -330,7 +330,7 @@ class Mouse {
   }
 
   /** When the mouse comes into the parent container. */
-  _mouseOver(event) {
+  _mouseEnter(event) {
     let { isTouching, preventDefault } = this;
 
     if (isTouching === false) {
@@ -346,12 +346,12 @@ class Mouse {
       this._updatePosition(null);
 
       /* Perform action for over event */
-      this._fireEvents(this.overEvents, event);
+      this._fireEvents(this.enterEvents, event);
     }
   }
 
-  /** When the mouse moves out from the parent container. */
-  _mouseOut(event) {
+  /** When the mouse leaves parent container. */
+  _mouseLeave(event) {
     let { isTouching, preventDefault } = this;
 
     if (isTouching === false) {
@@ -367,7 +367,7 @@ class Mouse {
       this._updatePosition(null);
 
       /* Perform action for out event */
-      this._fireEvents(this.outEvents, event);
+      this._fireEvents(this.leaveEvents, event);
     }
   }
 
@@ -742,7 +742,7 @@ class Mouse {
     this._updatePosition(null);
 
     /* Perform action for over event */
-    this._fireEvents(this.overEvents, event);
+    this._fireEvents(this.enterEvents, event);
   }
 
   /** When a contact leaves the bound-to element on the touch surface. */
@@ -761,7 +761,7 @@ class Mouse {
     this._updatePosition(null);
 
     /* Perform action for over event. */
-    this._fireEvents(this.outEvents, event);
+    this._fireEvents(this.leaveEvents, event);
 
     setTimeout(() => (this.isTouching = false), 0);
   }
@@ -783,7 +783,7 @@ class Mouse {
     this._updatePosition(null);
 
     /* Perform action for over event. */
-    this._fireEvents(this.outEvents, event);
+    this._fireEvents(this.leaveEvents, event);
 
     setTimeout(() => (this.isTouching = false), 0);
   }
@@ -826,12 +826,7 @@ class Mouse {
     this.movingSpeed = timeDiff > 0 ? movedDistance / timeDiff : 0;
 
     /* Update the mouse direction with the new position. */
-    if (
-      position &&
-      newPosition &&
-      position.x !== newPosition.x &&
-      position.y !== newPosition.y
-    ) {
+    if (movedDistance) {
       this.direction = getDirection(position, newPosition);
     }
 
@@ -878,34 +873,34 @@ class Mouse {
     this.preventDefault = preventDefault === true;
   }
 
-  /** Bind an event handler to the mouse over event. */
-  onOver(overEvent) {
-    return this._addEvent(overEvent, this.overEvents);
+  /** Bind an event handler to the mouse enter event. */
+  onEnter(enterEvent) {
+    return this._addEvent(enterEvent, this.enterEvents);
   }
 
-  /** Unbind an event handler to the mouse over event. */
-  removeOver(overEvent) {
-    this._removeEvent(overEvent, this.overEvents);
+  /** Unbind an event handler to the mouse enter event. */
+  removeEnter(enterEvent) {
+    this._removeEvent(enterEvent, this.enterEvents);
   }
 
-  /** Unbind all event handlers from the mouse over event. */
-  clearOver() {
-    this._clearEvent(this.overEvents);
+  /** Unbind all event handlers from the mouse enter event. */
+  clearEnter() {
+    this._clearEvent(this.enterEvents);
   }
 
-  /** Bind an event handler to the mouse out event. */
-  onOut(outEvent) {
-    return this._addEvent(outEvent, this.outEvents);
+  /** Bind an event handler to the mouse leave event. */
+  onLeave(leaveEvent) {
+    return this._addEvent(leaveEvent, this.leaveEvents);
   }
 
-  /** Unbind an event handler to the mouse out event. */
-  removeOut(outEvent) {
-    this._removeEvent(outEvent, this.outEvents);
+  /** Unbind an event handler to the mouse leave event. */
+  removeLeave(leaveEvent) {
+    this._removeEvent(leaveEvent, this.leaveEvents);
   }
 
-  /** Unbind all event handlers from the mouse out event. */
-  clearOut() {
-    this._clearEvent(this.outEvents);
+  /** Unbind all event handlers from the mouse leave event. */
+  clearLeave() {
+    this._clearEvent(this.leaveEvents);
   }
 
   /** Bind an event handler to the mouse down event. */
