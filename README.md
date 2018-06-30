@@ -18,39 +18,41 @@ It also captures position, direction and speed of movement.
 [download-image]: https://img.shields.io/npm/dm/jw-mouse.svg
 [download-url]: https://npmjs.org/package/jw-mouse
 
+[Demo](http://waichungwong.github.io/jw-mouse/build)
+
 ## Install
 
 [![NPM](https://nodei.co/npm/jw-mouse.png)](https://nodei.co/npm/jw-mouse)
 
 ## Methods
 
-| Method              | Description                                                                     |
-| ------------------- | ------------------------------------------------------------------------------- |
-| `attach`            | append the mouse to the a DOM element and event functions to it.                |
-| `detach`            | disengage the mouse from DOM element and event functions from it.               |
-| `setPreventDefault` | toggle value for mouse prevent default on all events.                           |
-| `onEnter`           | bind an event handler to the mouse enter event. Returns a method to unbind.     |
-| `clearEnter`        | unbind all event handlers from the mouse enter event.                           |
-| `onLeave`           | bind an event handler to the mouse leave event. Returns a method to unbind.     |
-| `clearLeave`        | unbind all event handlers from the mouse leave event.                           |
-| `onDown`            | bind an event handler to the mouse down event. Returns a method to unbind.      |
-| `clearDown`         | unbind all event handlers from the mouse down event.                            |
-| `onUp`              | bind an event handler to the mouse up event. Returns a method to unbind.        |
-| `clearUp`           | unbind all event handlers from the mouse up event.                              |
-| `onMove`            | bind an event handler to the mouse move event. Returns a method to unbind.      |
-| `clearMove`         | unbind all event handlers from the mouse move event.                            |
-| `onScroll`          | bind an event handler to the mouse scroll event. Returns a method to unbind.    |
-| `clearScroll`       | unbind all event handlers from the mouse scroll event.                          |
-| `onDrag`            | bind an event handler to the mouse drag event. Returns a method to unbind.      |
-| `clearDrag`         | unbind all event handlers from the mouse drag event.                            |
-| `onDragOver`        | bind an event handler to the mouse drag over event. Returns a method to unbind. |
-| `clearDragOver`     | unbind all event handlers from the mouse drag over event.                       |
-| `onDrop`            | bind an event handler to the mouse drop event. Returns a method to unbind.      |
-| `clearDrop`         | unbind all event handlers from the mouse drop event.                            |
-| `onStop`            | bind an event handler to the mouse stop event. Returns a method to unbind.      |
-| `clearStop`         | unbind all event handlers from the mouse stop event.                            |
-| `onClick`           | bind an event handler to the mouse click event. Returns a method to unbind.     |
-| `clearClick`        | unbind all event handlers from the mouse click event.                           |
+| Method              | Parameters                | Description                                                                     |
+| ------------------- | ------------------------- | ------------------------------------------------------------------------------- |
+| `attach`            | `element`: DOM element    | append the mouse to the a DOM element and event functions to it.                |
+| `detach`            |                           | disengage the mouse from DOM element and event functions from it.               |
+| `setPreventDefault` | `preventDefault`: boolean | toggle value for mouse prevent default on all events.                           |
+| `onEnter`           | `handler`: function       | bind an event handler to the mouse enter event. Returns a method to unbind.     |
+| `clearEnter`        |                           | unbind all event handlers from the mouse enter event.                           |
+| `onLeave`           | `handler`: function       | bind an event handler to the mouse leave event. Returns a method to unbind.     |
+| `clearLeave`        |                           | unbind all event handlers from the mouse leave event.                           |
+| `onDown`            | `handler`: function       | bind an event handler to the mouse down event. Returns a method to unbind.      |
+| `clearDown`         |                           | unbind all event handlers from the mouse down event.                            |
+| `onUp`              | `handler`: function       | bind an event handler to the mouse up event. Returns a method to unbind.        |
+| `clearUp`           |                           | unbind all event handlers from the mouse up event.                              |
+| `onMove`            | `handler`: function       | bind an event handler to the mouse move event. Returns a method to unbind.      |
+| `clearMove`         |                           | unbind all event handlers from the mouse move event.                            |
+| `onScroll`          | `handler`: function       | bind an event handler to the mouse scroll event. Returns a method to unbind.    |
+| `clearScroll`       |                           | unbind all event handlers from the mouse scroll event.                          |
+| `onDrag`            | `handler`: function       | bind an event handler to the mouse drag event. Returns a method to unbind.      |
+| `clearDrag`         |                           | unbind all event handlers from the mouse drag event.                            |
+| `onDragOver`        | `handler`: function       | bind an event handler to the mouse drag over event. Returns a method to unbind. |
+| `clearDragOver`     |                           | unbind all event handlers from the mouse drag over event.                       |
+| `onDrop`            | `handler`: function       | bind an event handler to the mouse drop event. Returns a method to unbind.      |
+| `clearDrop`         |                           | unbind all event handlers from the mouse drop event.                            |
+| `onStop`            | `handler`: function       | bind an event handler to the mouse stop event. Returns a method to unbind.      |
+| `clearStop`         |                           | unbind all event handlers from the mouse stop event.                            |
+| `onClick`           | `handler`: function       | bind an event handler to the mouse click event. Returns a method to unbind.     |
+| `clearClick`        |                           | unbind all event handlers from the mouse click event.                           |
 
 ## Handler Event
 
