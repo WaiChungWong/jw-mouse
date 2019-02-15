@@ -1,6 +1,6 @@
 # jw-mouse
 
-An instance class which hooks into all mouse and touch events.
+A static and stateful instance which hooks into all mouse and touch events.
 It also captures position, direction and speed of movement.
 (Currently it supports single touch only)
 
